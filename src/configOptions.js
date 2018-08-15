@@ -19,7 +19,7 @@ export const mediaSize = Object.keys(displaySizes).reduce((acc, label) => {
 export const particleConfig = {
   "particles": {
     "number": {
-      "value": 50,
+      "value": 30,
       "density": {
         "enable": true,
         "value_area": 6000
