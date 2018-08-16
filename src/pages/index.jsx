@@ -29,8 +29,8 @@ const Container = styled.div`
   }
 
   ${mediaSize.phone`
-    grid-template-columns: auto 40vw;
-    grid-template-rows: 60vw 1fr 1fr;
+    grid-template-columns: auto 30vw;
+    grid-template-rows: 50vw auto 2em;
     grid-template-areas: "pic title"
                          "actions actions"
                          "social copyright";
@@ -62,7 +62,7 @@ const Title = styled.div`
 
   ${mediaSize.phone`
     position: relative;
-    right: 35vw;
+    right: 45vw;
   `};
 `;
 
@@ -83,6 +83,7 @@ const Logo = styled.img`
 `;
 
 const ActionContainer = styled.div`
+  margin-top: 4em;
   grid-area: actions;
   display: grid;
   align-self: center;
@@ -95,12 +96,14 @@ const ActionContainer = styled.div`
 
   ${mediaSize.phone`
     width: 95%;
+    margin-top: 0;
     justify-self: center;
+    align-self: end;
     grid-template-columns: auto;
-    grid-template-rows: 2em 2em 2em;
+    grid-template-rows: auto auto auto;
     grid-column-gap: 0;
-    margin-top: 4em;
-    grid-row-gap: 5px;
+    margin-bottom: 2em;
+    grid-row-gap: 0;
     grid-template-areas: "action"
                          "exec-team"
                          "mailing-list";
@@ -112,7 +115,8 @@ const ActionHeader = styled.div`
   font-size: 4vmin;
 
   ${mediaSize.phone`
-    font-size: 5vmin;
+    font-size: 6vmin;
+    margin-bottom: 1.5em;
   `};
 `;
 
@@ -150,10 +154,10 @@ const ActionButton = styled.div`
   }
 
   ${mediaSize.phone`
-    height: 8vw;
+    height: 10vw;
     border-radius: 10px;
-    line-height: 8vw;
-    font-size: 3vw;
+    line-height: 10vw;
+    font-size: 4vw;
   `};
 `;
 
@@ -175,10 +179,11 @@ const ActionInput = styled.div`
   }
 
   ${mediaSize.phone`
-    height: 8vw;
+    margin-top: 1.5em;
+    height: 10vw;
     border-radius: 10px;
-    line-height: 8vw;
-    font-size: 3vw;
+    line-height: 10vw;
+    font-size: 4vw;
   `};
 `;
 
@@ -226,15 +231,21 @@ const ToastBox = styled.div`
 
 const SocialContainer = styled.div`
   grid-area: social;
-  font-size: 3vmin;
   align-self: end;
 
   & img {
-    max-width: 1.5em;
-    max-height: 1.5em;
+    width: 3em;
+    height: 3em;
     margin-right: 10px;
     opacity: 0.75;
     transition: opacity 300ms ease-in-out;
+
+    ${mediaSize.phone`
+      opacity: 1;
+      width: 1.5em;
+      height: 1.5em;
+      margin-right: 5px;
+    `};
 
     &:hover {
       opacity: 1;
@@ -249,6 +260,13 @@ const Copyright = styled.div`
   align-self: end;
   justify-self: end;
   margin-right: 3vw;
+
+  ${mediaSize.phone`
+    width: 80%;
+    text-align: right;
+    font-size: 3.5vmin;
+    margin-right: 1vmin;
+  `};
 `;
 
 
@@ -287,7 +305,7 @@ class IndexPage extends React.Component {
     }
     if(this.state.lastInputValid === true){
       imgSrc = '/success.svg';
-      toastMsg = 'You\'re set! Keep an eye on your inbox.';
+      toastMsg = 'You\'re all set! Keep an eye on your inbox.';
       toastColor = '#37d634';
     }
     return (
@@ -301,7 +319,7 @@ class IndexPage extends React.Component {
           <ActionContainer>
             <ActionHeader>Be a part of the <WordShadow>change</WordShadow>.</ActionHeader>
             <div style={{gridArea: 'exec-team', fontSize: '2vmin'}}>
-              { isMobile ? null : <span>We want you to help us make Equithon 2019 the best one yet.<br/></span> }
+              { isMobile ? null : <span>You. Yes, you! We want you to help us make Equithon 2019 the best one yet.<br/></span> }
               <ActionButton onClick={() => window.open('https://www.google.ca/search?q=this+should+link+to+the+exec+application+typeform%2Fgoogle+form&oq=this+should+link+to+the+exec+application+typeform')}>
                 { isMobile ? "Join The Exec Team" : "Join The Team" }
               </ActionButton>
@@ -313,10 +331,10 @@ class IndexPage extends React.Component {
                   { !this.state.curInput ? (isMobile ? "Sign Up For Updates" : "Keep Me Posted") : null }
                 </ActionInputOverlay>
                 <ActionInputOverlay focused={!this.state.inputFocused} color="rgba(142, 142, 142, 0.3)" width="90%">
-                  { !this.state.curInput ? (isMobile ? "Email" : "Your Email") : null }
+                  { !this.state.curInput ? "Your Email" : null }
                   <ClickButton src={imgSrc} />
                 </ActionInputOverlay>
-                <form name="contact" method="POST" onSubmit={(e) => this.handleSubmit(e)} netlify>
+                <form name="contact" method="POST" onSubmit={(e) => this.handleSubmit(e)}>
                   <ActionInputBox type="email" name="userEmail" onChange={(evt) => { this.setState({curInput: evt.target.value, lastInputValid: null}) }} />
                 </form>
               </ActionInput>
