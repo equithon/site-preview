@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Particles from 'react-particles-js';
+import { isMobile } from 'react-device-detect';
 import {
   mediaSize,
   particleConfig
@@ -10,12 +11,12 @@ import {
 const Container = styled.div`
   display: grid;
   grid-template-columns: 5fr 3fr;
-  grid-template-rows: 2.5fr 2fr 1fr;
+  grid-template-rows: 2fr 2fr 1fr;
   grid-template-areas: "title pic"
                        "actions pic"
                        "social copyright";
-  min-height: 80vh;
-  min-width: 80vw;
+  height: 80vh;
+  width: 80vw;
   padding: 10vh 10vw;
   background: linear-gradient(to bottom right, #a934f7 0%, #ad51e8 48%, #b26fd9 99%);
 
@@ -25,44 +26,65 @@ const Container = styled.div`
   & > * {
     z-index: 2;
   }
+
+  ${mediaSize.phone`
+    grid-template-columns: auto 40vw;
+    grid-template-rows: 60vw 1fr 1fr;
+    grid-template-areas: "pic title"
+                         "actions actions"
+                         "social copyright";
+  `};
 `;
 
 // Style of the particles.js background container
 const ParticlesStyle = {
   position: 'fixed',
-  width: '100%',
-  height: '100%',
+  minWidth: '100vw',
+  minHeight: '100vh',
   zIndex: '1'
 };
 
 const Title = styled.div`
   grid-area: title;
   font-size: 15vmin;
-
+  align-self: center;
   font-weight: bold;
 
   &:after {
     content: 'is back.';
-    font-size: 3rem;
+    font-size: 6vmin;
     position: relative;
     top: 1em;
     right: 3em;
     white-space:nowrap;
   }
+
+  ${mediaSize.phone`
+    position: relative;
+    right: 35vw;
+  `};
 `;
 
 const Logo = styled.img`
   grid-area: pic;
-  font-size: 5em;
-  max-width: 30vw;
-  max-height: 50vh;
+  margin-top: 3em;
+  max-width: 35vw;
+  max-height: 55vh;
   justify-self: end;
-  align-self: center;
+  align-self: end;
+
+  ${mediaSize.phone`
+    max-width: 35vw;
+    max-height: 70vw;
+    justify-self: start;
+    opacity: 0.4;
+  `};
 `;
 
 const ActionContainer = styled.div`
   grid-area: actions;
   display: grid;
+  align-self: center;
   grid-template-columns: 15vw 15vw;
   grid-template-rows: 2fr 8fr;
   grid-column-gap: 20%;
@@ -70,12 +92,26 @@ const ActionContainer = styled.div`
   grid-template-areas: "action action"
                        "exec-team mailing-list";
 
+  ${mediaSize.phone`
+    justify-self: center;
+    grid-template-columns: auto;
+    grid-template-rows: 2em 2em 2em;
+    grid-column-gap: 0;
+    margin-top: 4em;
+    grid-row-gap: 5px;
+    grid-template-areas: "action"
+                         "exec-team"
+                         "mailing-list";
+  `};
 `;
 
 const ActionHeader = styled.div`
   grid-area: action;
   font-size: 4vmin;
 
+  ${mediaSize.phone`
+    font-size: 5vmin;
+  `};
 `;
 
 const WordShadow = styled.span`
@@ -94,21 +130,29 @@ const WordShadow = styled.span`
 `;
 
 const ActionButton = styled.div`
-  margin-top: 1em;
+  margin-top: 1.5em;
   background-color: white;
   color: #a934f7;
   height: 2.5em;
-  border-radius: 4px;
+  border-radius: 20px;
   cursor: pointer;
   background-color: #fff;
 	border-bottom: 2px solid #909090;
 	text-shadow: 0px -2px #fff;
   text-align: center;
   line-height: 2.5em;
+
   &:hover {
     transform: translate(0px,2px);
 	  border-bottom: 1px solid;
   }
+
+  ${mediaSize.phone`
+    height: 8vw;
+    border-radius: 10px;
+    line-height: 8vw;
+    font-size: 3vw;
+  `};
 `;
 
 const SocialContainer = styled.div`
@@ -148,7 +192,7 @@ class IndexPage extends React.Component {
   render() {
     return (
       <div>
-        <Particles params={particleConfig} style={ParticlesStyle} />
+        {/*}<Particles params={particleConfig} style={ParticlesStyle} />*/}
         <Container>
           <Title>
             Equithon
@@ -157,15 +201,15 @@ class IndexPage extends React.Component {
           <ActionContainer>
             <ActionHeader>Be a part of the <WordShadow>change</WordShadow>.</ActionHeader>
             <div style={{gridArea: 'exec-team', fontSize: '2vmin'}}>
-              We want you to help us make Equithon 2019 the best one yet. <br/>
+              { isMobile ? null : <span>We want you to help us make Equithon 2019 the best one yet.<br/></span> }
               <ActionButton onClick={() => window.open('https://www.google.ca/search?q=this+should+link+to+the+exec+application+typeform%2Fgoogle+form&oq=this+should+link+to+the+exec+application+typeform')}>
-                Join The Team
+                { isMobile ? "Join The Exec Team" : "Join The Team" }
               </ActionButton>
             </div>
             <div style={{gridArea: 'mailing-list', fontSize: '2vmin'}}>
-              Interested in participating? Be the first to receive updates by signing up. <br/>
+              { isMobile ? null : <span>Interested in participating? Be the first to receive updates by signing up. <br/></span> }
               <ActionButton>
-                Keep Me Posted
+                { isMobile ? "Sign Up For Updates" : "Keep Me Posted" }
               </ActionButton>
             </div>
           </ActionContainer>
