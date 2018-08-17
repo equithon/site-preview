@@ -16,10 +16,10 @@ const Container = styled.div`
   grid-template-areas: "title pic"
                        "actions pic"
                        "social copyright";
-  height: 80vh;
-  width: 80vw;
+  height: 75vh;
+  width: 75vw;
   padding: 10vh 10vw;
-  background: linear-gradient(to bottom right, #a934f7 0%, #ad51e8 48%, #b26fd9 99%);
+  background: linear-gradient(to bottom right, #895fd2 10%, #8f6bcd 48%, #b797ee 99%);
 
   color: white;
   font-family: "SF Pro Text", sans-serif;
@@ -29,7 +29,7 @@ const Container = styled.div`
   }
 
   ${mediaSize.phone`
-    grid-template-columns: auto 30vw;
+    grid-template-columns: 30vw 45vw;
     grid-template-rows: 50vw auto 2em;
     grid-template-areas: "pic title"
                          "actions actions"
@@ -62,7 +62,7 @@ const Title = styled.div`
 
   ${mediaSize.phone`
     position: relative;
-    right: 45vw;
+    right: 28vw;
   `};
 `;
 
@@ -87,12 +87,13 @@ const ActionContainer = styled.div`
   grid-area: actions;
   display: grid;
   align-self: center;
-  grid-template-columns: 15vw 15vw;
-  grid-template-rows: 2fr 8fr;
+  grid-template-columns: 17vw 17vw;
+  grid-template-rows: 2fr 12em;
   grid-column-gap: 20%;
   grid-row-gap: 2em;
   grid-template-areas: "action action"
                        "exec-team mailing-list";
+
 
   ${mediaSize.phone`
     width: 95%;
@@ -102,7 +103,6 @@ const ActionContainer = styled.div`
     grid-template-columns: auto;
     grid-template-rows: auto auto auto;
     grid-column-gap: 0;
-    margin-bottom: 2em;
     grid-row-gap: 0;
     grid-template-areas: "action"
                          "exec-team"
@@ -116,7 +116,7 @@ const ActionHeader = styled.div`
 
   ${mediaSize.phone`
     font-size: 6vmin;
-    margin-bottom: 1.5em;
+    margin-bottom: 0.5em;
   `};
 `;
 
@@ -138,7 +138,7 @@ const WordShadow = styled.span`
 const ActionButton = styled.div`
   margin-top: 1.5em;
   background-color: white;
-  color: #a934f7;
+  color: #895fd2;
   height: 2.5em;
   border-radius: 20px;
   cursor: pointer;
@@ -174,8 +174,15 @@ const ActionInput = styled.div`
   position: relative;
   overflow-y: hidden;
 
-  & textarea:focus, input:focus{
+  & input:focus{
     outline: none;
+  }
+
+  & input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+      transition: background-color 5000s ease-in-out 0s;
   }
 
   ${mediaSize.phone`
@@ -197,16 +204,38 @@ const ActionInputOverlay = styled.div`
   position: absolute;
   top: 0;
   left: 5%;
-  transform: ${props => props.focused ? css`translateY(-2.5em)` : css`translateY(0)`}
+  transform: ${props => props.show ? css`translateY(0)` : css`translateY(-2.5em)`}
 `;
 
-const ClickButton = styled.img`
+const ClickButton = styled.button`
+  display: inline-block;
+  background: transparent;
+  float: right;
+  height: 2.5em;
+  width: 2.5em;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  right: 1em;
+  top: 0.7em;
+
+  &:focus {
+    outline: none;
+  }
+
+  transition: transform 500ms;
+  transform: ${props => props.show ? css`translateY(0)` : css`translateY(-2.5em)`};
+
+  ${mediaSize.phone`
+    height: auto;
+    top: 1.1em;
+  `};
+`;
+
+const ClickButtonImg = styled.img`
   max-width: 1em;
   max-height: 1em;
   float: right;
-  position: relative;
-  right: 0.5em;
-  top: 0.75em;
   opacity: 0.4;
 `;
 
@@ -217,7 +246,9 @@ const ActionInputBox = styled.input`
   border: none;
   position: absolute;
   left: 7%;
+  top: -5%;
   font-size: 1em;
+
 `;
 
 const ToastBox = styled.div`
@@ -226,7 +257,12 @@ const ToastBox = styled.div`
   color: ${props => props.fontColor || 'white'};
   transition: all 500ms;
   opacity: ${props => props.show ? '1': 0 };
-  transform: ${props => props.show ? css`translateY(0)` : css`translateY(1rem)`}
+  transform: ${props => props.show ? css`translateY(0)` : css`translateY(1rem)`};
+
+  ${mediaSize.phone`
+    font-size: 2em;
+    height: 3em;
+  `};
 `;
 
 const SocialContainer = styled.div`
@@ -264,8 +300,9 @@ const Copyright = styled.div`
   ${mediaSize.phone`
     width: 80%;
     text-align: right;
-    font-size: 3.5vmin;
-    margin-right: 1vmin;
+    align-self: center;
+    font-size: 3.25vmin;
+    margin-right: 2vmin;
   `};
 `;
 
@@ -283,8 +320,8 @@ class IndexPage extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    const userEmail = e.target.children && e.target.children[0].value;
-    if( /(.+)@(.+){2,}\.(.+){2,}/.test(userEmail) ){ // valid email
+    const userEmail = e.target.children && e.target.children[1].value;
+    if( /(.+)@(.+){2,}\.(.+){2,}/.test(userEmail)){ // valid email
       console.log(userEmail + " is valid");
       this.setState({lastInputValid: true})
     } else { // invalid email
@@ -295,12 +332,14 @@ class IndexPage extends React.Component {
   }
 
   render() {
+    console.log(this.state.curInput)
+    console.log(this.state.lastInputValid)
     let imgSrc = '/submit.svg';
     let toastMsg = null;
     let toastColor = null;
     if(this.state.lastInputValid === false) {
       imgSrc = '/fail.svg';
-      toastMsg = 'Your email address seems funky. Try again.';
+      toastMsg = 'Your email address seems funky. Try again?';
       toastColor = '#fa5050';
     }
     if(this.state.lastInputValid === true){
@@ -327,15 +366,19 @@ class IndexPage extends React.Component {
             <div style={{gridArea: 'mailing-list', fontSize: '2vmin'}}>
               { isMobile ? null : <span>Interested in participating? Be the first to receive updates by signing up. <br/></span> }
               <ActionInput onClick={() => this.setState({ inputFocused: true })} tabIndex="0" onBlur={() => this.setState({ inputFocused: false })} lastSubmitted={this.state.lastInputValid}>
-                <ActionInputOverlay focused={this.state.inputFocused} color="#a934f7" width="90%">
+                <ActionInputOverlay show={!this.state.inputFocused} color="#895fd2" width="90%">
                   { !this.state.curInput ? (isMobile ? "Sign Up For Updates" : "Keep Me Posted") : null }
                 </ActionInputOverlay>
-                <ActionInputOverlay focused={!this.state.inputFocused} color="rgba(142, 142, 142, 0.3)" width="90%">
+                <ActionInputOverlay show={this.state.inputFocused} color="rgba(142, 142, 142, 0.3)" width="90%">
                   { !this.state.curInput ? "Your Email" : null }
-                  <ClickButton src={imgSrc} />
                 </ActionInputOverlay>
-                <form name="contact" method="POST" onSubmit={(e) => this.handleSubmit(e)}>
+                <form name="contact" id="mailingListForm" onSubmit={(e) => this.handleSubmit(e)}>
+                  <ClickButton type="submit" show={this.state.inputFocused || this.state.curInput !== ''}>
+                    <ClickButtonImg src={imgSrc} />
+                  </ClickButton>
                   <ActionInputBox type="email" name="userEmail" onChange={(evt) => { this.setState({curInput: evt.target.value, lastInputValid: null}) }} />
+
+
                 </form>
               </ActionInput>
               <ToastBox fontColor={toastColor} show={toastMsg !== null}>
