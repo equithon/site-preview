@@ -12,12 +12,12 @@ import {
 const Container = styled.div`
   display: grid;
   grid-template-columns: 5fr 3fr;
-  grid-template-rows: 2fr 2fr 1fr;
+  grid-template-rows: 20vh 50vh 10vh;
   grid-template-areas: "title pic"
                        "actions pic"
                        "social copyright";
-  height: 75vh;
-  width: 75vw;
+  height: 80vh;
+  width: 80vw;
   padding: 10vh 10vw;
   background: linear-gradient(to bottom right, #895fd2 10%, #8f6bcd 48%, #b797ee 99%);
 
@@ -72,11 +72,12 @@ const Logo = styled.img`
   max-width: 35vw;
   max-height: 55vh;
   justify-self: end;
-  align-self: end;
+  align-self: start;
 
   ${mediaSize.phone`
     max-width: 35vw;
     max-height: 70vw;
+    align-self: end;
     justify-self: start;
     opacity: 0.4;
   `};
@@ -292,7 +293,7 @@ const SocialContainer = styled.div`
 
 const Copyright = styled.div`
   grid-area: copyright;
-  font-size: 2vmin;
+  font-size: 2.5vmin;
   align-self: end;
   justify-self: end;
   margin-right: 3vw;
