@@ -50,6 +50,8 @@ const Title = styled.div`
   font-size: 15vmin;
   align-self: center;
   font-weight: bold;
+  opacity: ${props => props.visible ? 1 : 0};
+  transition: opacity 1s;
 
   &:after {
     content: 'is back.';
@@ -58,6 +60,8 @@ const Title = styled.div`
     top: 1em;
     right: 3em;
     white-space:nowrap;
+    opacity: ${props => props.subVisible ? 1 : 0};
+    transition: opacity 1s;
   }
 
   ${mediaSize.phone`
@@ -73,18 +77,24 @@ const Logo = styled.img`
   max-height: 55vh;
   justify-self: end;
   align-self: start;
+  opacity: ${props => props.visible ? 1 : 0};
+  transform: ${props => props.visible ? css`translateY(0)` : css`translateY(1rem)`};
+  transition: opacity 1s, transform 1s ease-in-out;
 
   ${mediaSize.phone`
     max-width: 35vw;
     max-height: 70vw;
     align-self: end;
     justify-self: start;
-    opacity: 0.4;
+    opacity: ${props => props.visible ? 0.4 : 0};
   `};
 `;
 
 const ActionContainer = styled.div`
   margin-top: 4em;
+  opacity: ${props => props.visible ? 1 : 0};
+  transform: ${props => props.visible ? css`translateY(0)` : css`translateY(1rem)`};
+  transition: opacity 1s, transform 1s ease-in-out;
   grid-area: actions;
   display: grid;
   align-self: center;
@@ -133,6 +143,8 @@ const WordShadow = styled.span`
     top: -0.4em;
     right: -1em;
     white-space:nowrap;
+    opacity: ${props => props.shadowVisible ? 1 : 0};
+    transition: opacity 1s;
   }
 `;
 
@@ -186,6 +198,7 @@ const ActionInput = styled.div`
       transition: background-color 5000s ease-in-out 0s;
   }
 
+
   ${mediaSize.phone`
     margin-top: 1.5em;
     height: 10vw;
@@ -193,6 +206,29 @@ const ActionInput = styled.div`
     line-height: 10vw;
     font-size: 4vw;
   `};
+
+  @keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+  animation: none;
+  transform: translate3d(0, 0, 0);
+  &.shake {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  }
 `;
 
 const ActionInputOverlay = styled.div`
@@ -283,6 +319,9 @@ const ToastBox = styled.div`
 const SocialContainer = styled.div`
   grid-area: social;
   align-self: end;
+  opacity: ${props => props.visible ? 1 : 0};
+  transform: ${props => props.visible ? css`translateY(0)` : css`translateY(1rem)`};
+  transition: opacity 1s, transform 1s ease-in-out;
 
   & img {
     width: 3em;
@@ -311,6 +350,9 @@ const Copyright = styled.div`
   align-self: end;
   justify-self: end;
   margin-right: 3vw;
+  opacity: ${props => props.visible ? 1 : 0};
+  transform: ${props => props.visible ? css`translateY(0)` : css`translateY(1rem)`};
+  transition: opacity 1s, transform 1s ease-in-out;
 
   ${mediaSize.phone`
     width: 80%;
@@ -330,6 +372,11 @@ class IndexPage extends React.Component {
       inputFocused: false,
       curInput: '',
       lastInputValid: null,
+      lastInputShake: false,
+      mainVisible: false,
+      subVisible: false,
+      restVisible: false,
+      shadowVisible: false
     };
   }
 
@@ -341,9 +388,22 @@ class IndexPage extends React.Component {
       this.setState({lastInputValid: true})
     } else { // invalid email
       console.log(userEmail + " is invalid");
-      this.setState({lastInputValid: false})
+      this.setState({lastInputValid: false, lastInputShake: true})
     }
+  }
 
+  componentDidMount() {
+    this.mainTimer = setTimeout(() => this.setState({mainVisible: true}), 200);
+    this.subTimer = setTimeout(() => this.setState({subVisible: true}), 350);
+    this.restTimer = setTimeout(() => this.setState({restVisible: true}), 1250);
+    this.shadowTimer = setTimeout(() => this.setState({shadowVisible: true}), 1450);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.mainTimer);
+    clearTimeout(this.subTimer);
+    clearTimeout(this.restTimer);
+    clearTimeout(this.shadowTimer);
   }
 
   render() {
@@ -366,12 +426,12 @@ class IndexPage extends React.Component {
         {/*}<Particles params={particleConfig} style={ParticlesStyle} />*/}
         <LavaLampBg />
         <Container>
-          <Title>
+          <Title visible={this.state.mainVisible} subVisible={this.state.subVisible}>
             Equithon
           </Title>
-          <Logo src='/logo.png' />
-          <ActionContainer>
-            <ActionHeader>Be a part of the <WordShadow>change</WordShadow>.</ActionHeader>
+          <Logo src='/logo.png' visible={this.state.restVisible}/>
+          <ActionContainer visible={this.state.restVisible}>
+            <ActionHeader>Be a part of the <WordShadow shadowVisible={this.state.shadowVisible}>change</WordShadow>.</ActionHeader>
             <div style={{gridArea: 'exec-team', fontSize: '2.5vmin'}}>
               { isMobile ? null : <span>You. Yes, you! We want you to help us make Equithon 2019 the best one yet.<br/></span> }
               <ActionButton onClick={() => window.open('https://www.google.ca/search?q=this+should+link+to+the+exec+application+typeform%2Fgoogle+form&oq=this+should+link+to+the+exec+application+typeform')}>
@@ -380,18 +440,26 @@ class IndexPage extends React.Component {
             </div>
             <div style={{gridArea: 'mailing-list', fontSize: '2.5vmin'}}>
               { isMobile ? null : <span>Interested in participating? Be the first to receive updates by signing up. <br/></span> }
-              <ActionInput onClick={() => this.setState({ inputFocused: true })} tabIndex="0" onBlur={() => this.setState({ inputFocused: false })} lastSubmitted={this.state.lastInputValid}>
+              <ActionInput
+                onClick={() => this.setState({ inputFocused: true })}
+                tabIndex="0" onBlur={() => this.setState({ inputFocused: false })}
+                lastSubmitted={this.state.lastInputValid}
+                onAnimationEnd={() => this.setState({ lastInputShake: false })}
+                className={this.state.lastInputShake ? 'shake' : null}>
                 <ActionInputOverlay show={!this.state.inputFocused} color="#895fd2" width="90%">
                   { !this.state.curInput ? (isMobile ? "Sign Up For Updates" : "Keep Me Posted") : null }
                 </ActionInputOverlay>
                 <ActionInputOverlay show={this.state.inputFocused} color="rgba(142, 142, 142, 0.3)" width="90%">
                   { !this.state.curInput ? "Your Email" : null }
                 </ActionInputOverlay>
-                <form name="contact" id="mailingListForm" onSubmit={(e) => this.handleSubmit(e)}>
+                <form name="mailing-list" id="mailingListForm" onSubmit={(e) => this.handleSubmit(e)} netlify-honeypot="superSecretField" netlify>
                   <ClickButton type="submit" show={this.state.inputFocused || this.state.curInput !== ''}>
                     <ClickButtonImg src={imgSrc} />
                   </ClickButton>
                   <ActionInputBox type="email" name="userEmail" onChange={(evt) => { this.setState({curInput: evt.target.value, lastInputValid: null}) }} />
+                  <div style={{display: "none"}}>
+                    <label>Don’t fill this out if you're human: <input name="superSecretField" /></label>
+                  </div>
                 </form>
               </ActionInput>
               <ToastBox fontColor={toastColor} show={toastMsg !== null}>
@@ -399,7 +467,7 @@ class IndexPage extends React.Component {
               </ToastBox>
             </div>
           </ActionContainer>
-          <SocialContainer>
+          <SocialContainer visible={this.state.restVisible}>
             <a href='https://www.facebook.com/UWEquithon/' target='_blank'>
               <img src='/social_fb.png' />
             </a>
@@ -410,7 +478,7 @@ class IndexPage extends React.Component {
               <img src='/social_email.png' />
             </a>
           </SocialContainer>
-          <Copyright>
+          <Copyright visible={this.state.restVisible}>
             © Equithon Corp. 2018.
           </Copyright>
         </Container>

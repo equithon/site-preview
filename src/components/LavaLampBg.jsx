@@ -119,7 +119,7 @@ class LavaLampBg extends React.Component {
                   },
                   a = i.screen.init("lamp-anim", null, !0),
                   o = a.ctx;
-              a.resize(), t = new e(a.width, a.height, Math.min(Math.floor(Math.max(width, height) / 150), 9), "#895fd2", "#7462e3")
+              a.resize(), t = new e(a.width, a.height, Math.min(Math.floor(Math.max(width, height) / 175), 9), "#895fd2", "#7462e3")
           }
           return {
               run: n
