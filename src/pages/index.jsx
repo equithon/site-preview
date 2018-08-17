@@ -140,14 +140,14 @@ const ActionButton = styled.div`
   margin-top: 1.5em;
   background-color: white;
   color: #895fd2;
-  height: 2em;
+  height: 3vw;
   border-radius: 20px;
   cursor: pointer;
   background-color: #fff;
 	border-bottom: 2px solid #909090;
 	text-shadow: 0px -2px #fff;
   text-align: center;
-  line-height: 2em;
+  line-height: 3vw;
 
   &:hover {
     transform: translate(0px,2px);
@@ -164,14 +164,14 @@ const ActionButton = styled.div`
 
 const ActionInput = styled.div`
   margin-top: 1.5em;
-  height: 2.5rem;
+  height: 3vw;
   border-radius: 20px;
   cursor: pointer;
   background-color: #fff;
 	border-bottom: 2px solid #909090;
 	text-shadow: 0px -2px #fff;
   text-align: center;
-  line-height: 2.5rem;
+  line-height: 3vw;
   position: relative;
   overflow-y: hidden;
 
@@ -201,48 +201,60 @@ const ActionInputOverlay = styled.div`
   white-space: nowrap;
   transition: transform 500ms;
   width: ${props => props.width};
-  height: 2.5rem;
+  height: 3vw;
   position: absolute;
   top: 0;
   left: 5%;
-  transform: ${props => props.show ? css`translateY(0)` : css`translateY(-2.5em)`}
+  transform: ${props => props.show ? css`translateY(0)` : css`translateY(-4vw)`};
+
+  ${mediaSize.phone`
+    height: 10vw;
+    transform: ${props => props.show ? css`translateY(0)` : css`translateY(-13vw)`};
+  `};
 `;
 
 const ClickButton = styled.button`
   display: inline-block;
   background: transparent;
   float: right;
-  height: 2.5rem;
-  width: 2.5em;
+  height: 3vw;
+  width: 3vw;
   border: none;
   cursor: pointer;
   position: relative;
-  right: 1em;
+  right: 1vw;
   display: table;
   &:focus {
     outline: none;
   }
 
   transition: transform 500ms;
-  transform: ${props => props.show ? css`translateY(0)` : css`translateY(-2.5em)`};
+  transform: ${props => props.show ? css`translateY(0)` : css`translateY(-4vw)`};
 
   ${mediaSize.phone`
     height: 10vw;
+    right: 3vw;
+    transform: ${props => props.show ? css`translateY(0)` : css`translateY(-13vw)`};
   `};
 `;
 
 const ClickButtonImg = styled.img`
-  max-width: 1.3em;
-  max-height: 1.3em;
+  max-width: 1vw;
+  max-height: 1vw;
   float: right;
   opacity: 0.4;
   display: table-cell;
   vertical-align: middle;
+
+  ${mediaSize.phone`
+    max-width: 4vw;
+    max-height: 4vw;
+  `};
 `;
 
 const ActionInputBox = styled.input`
   width: 70%;
-  height: 2.5rem;
+  height: 3vw;
   background: transparent;
   border: none;
   position: absolute;
