@@ -381,7 +381,6 @@ class IndexPage extends React.Component {
   }
 
   handleSubmit(e){
-    e.preventDefault();
     const userEmail = e.target.children && e.target.children[1].value;
     if( /(.+)@(.+){2,}\.(.+){2,}/.test(userEmail)){ // valid email
       console.log(userEmail + " is valid");
@@ -452,13 +451,14 @@ class IndexPage extends React.Component {
                 <ActionInputOverlay show={this.state.inputFocused} color="rgba(142, 142, 142, 0.3)" width="90%">
                   { !this.state.curInput ? "Your Email" : null }
                 </ActionInputOverlay>
-                <form name="mailing-list" id="mailingListForm" onSubmit={(e) => this.handleSubmit(e)} netlify-honeypot="superSecretField" netlify>
+                <form name="mailing-list" id="mailingListForm" onSubmit={(e) => this.handleSubmit(e)} method="POST" action="https://formspree.io/equithonmailinglistsignup@robot.zapier.com" target="_blank">
                   <ClickButton type="submit" show={this.state.inputFocused || this.state.curInput !== ''}>
                     <ClickButtonImg src={imgSrc} />
                   </ClickButton>
                   <ActionInputBox type="email" name="userEmail" onChange={(evt) => { this.setState({curInput: evt.target.value, lastInputValid: null}) }} />
                   <div style={{display: "none"}}>
-                    <label>Don’t fill this out if you're human: <input name="superSecretField" /></label>
+                    <input type="hidden" name="_next" value="/thanks" />
+                    <label>Don’t fill this out if you're human: <input name="_gotcha" /></label>
                   </div>
                 </form>
               </ActionInput>

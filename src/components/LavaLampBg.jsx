@@ -25,10 +25,9 @@ class LavaLampBg extends React.Component {
 
 
       let screenDims = this.getDims();
-
       let width = screenDims.width;
       let height = screenDims.height;
-      console.log(width, height);
+
       // Lava lamp effect courtesy of https://codepen.io/happycrappie/pen/JJdNZq
       window.lavaAnimation = function() {
           "use strict";
