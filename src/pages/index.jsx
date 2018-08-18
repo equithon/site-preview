@@ -29,7 +29,7 @@ const Container = styled.div`
   }
 
   ${mediaSize.phone`
-    grid-template-columns: 30vw 45vw;
+    grid-template-columns: 35vw 45vw;
     grid-template-rows: 50vw auto 2em;
     grid-template-areas: "pic title"
                          "actions actions"
@@ -66,7 +66,7 @@ const Title = styled.div`
 
   ${mediaSize.phone`
     position: relative;
-    right: 28vw;
+    right: 30vw;
   `};
 `;
 

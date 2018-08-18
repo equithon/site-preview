@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 
 const Bg = styled.canvas`
   position: absolute;
@@ -21,14 +22,13 @@ class LavaLampBg extends React.Component {
     if (animCanvas) {
       window.addEventListener('resize', this.resizeCanvas(animCanvas), false);
       this.resizeCanvas(animCanvas);
-      let width = window.innerWidth
-        || document.documentElement.clientWidth
-        || document.body.clientWidth;
 
-      let height = window.innerHeight
-        || document.documentElement.clientHeight
-        || document.body.clientHeight;
 
+      let screenDims = this.getDims();
+
+      let width = screenDims.width;
+      let height = screenDims.height;
+      console.log(width, height);
       // Lava lamp effect courtesy of https://codepen.io/happycrappie/pen/JJdNZq
       window.lavaAnimation = function() {
           "use strict";
@@ -119,7 +119,7 @@ class LavaLampBg extends React.Component {
                   },
                   a = i.screen.init("lamp-anim", null, !0),
                   o = a.ctx;
-              a.resize(), t = new e(a.width, a.height, Math.min(Math.floor(Math.max(width, height) / 175), 9), "#895fd2", "#7462e3")
+              a.resize(), t = new e(a.width, a.height, Math.max(Math.min(Math.floor(Math.max(width, height) / 175), 9), 5), "#895fd2", "#7462e3")
           }
           return {
               run: n
@@ -132,16 +132,22 @@ class LavaLampBg extends React.Component {
   }
 
   resizeCanvas(canvas) {
-    let width = window.innerWidth
+    let screenDims = this.getDims();
+
+    canvas.width = screenDims.width;
+    canvas.height = screenDims.height;
+  }
+
+  getDims() {
+    let width = (isMobile ? null : window.innerWidth)
       || document.documentElement.clientWidth
       || document.body.clientWidth;
 
-    let height = window.innerHeight
+    let height = (isMobile ? null : window.innerHeight)
       || document.documentElement.clientHeight
       || document.body.clientHeight;
 
-    canvas.width = width;
-    canvas.height = height;
+    return {width: width, height: height};
   }
 
   render() {
