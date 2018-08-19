@@ -1,23 +1,25 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Particles from 'react-particles-js';
+import { isMobile } from 'react-device-detect';
+import MtSvgLines from 'react-mt-svg-lines';
 import {
   mediaSize,
   particleConfig
 } from '../configOptions.js';
-
+import LavaLampBg from '../components/LavaLampBg';
 
 const Container = styled.div`
   display: grid;
   grid-template-columns: 5fr 3fr;
-  grid-template-rows: 2.5fr 2fr 1fr;
+  grid-template-rows: 20vh 50vh 10vh;
   grid-template-areas: "title pic"
                        "actions pic"
                        "social copyright";
-  min-height: 80vh;
-  min-width: 80vw;
-  padding: 10vh 10vw;
-  background: linear-gradient(to bottom right, #a934f7 0%, #ad51e8 48%, #b26fd9 99%);
+  height: 83vh;
+  width: 80vw;
+  padding: 10vh 10vw 7vh 10vw;
+  background: linear-gradient(to bottom right, #895fd2 10%, #8f6bcd 48%, #b797ee 99%);
 
   color: white;
   font-family: "SF Pro Text", sans-serif;
@@ -25,57 +27,108 @@ const Container = styled.div`
   & > * {
     z-index: 2;
   }
+
+  ${mediaSize.phone`
+    grid-template-columns: 35vw 45vw;
+    grid-template-rows: 50vw auto 2em;
+    grid-template-areas: "pic title"
+                         "actions actions"
+                         "social copyright";
+  `};
 `;
 
 // Style of the particles.js background container
 const ParticlesStyle = {
   position: 'fixed',
-  width: '100%',
-  height: '100%',
+  minWidth: '100vw',
+  minHeight: '100vh',
   zIndex: '1'
 };
 
 const Title = styled.div`
   grid-area: title;
   font-size: 15vmin;
-
+  align-self: center;
   font-weight: bold;
+  opacity: ${props => props.visible ? 1 : 0};
+  transition: opacity 1s;
 
   &:after {
     content: 'is back.';
-    font-size: 3rem;
+    font-size: 6vmin;
     position: relative;
     top: 1em;
     right: 3em;
     white-space:nowrap;
+    opacity: ${props => props.subVisible ? 1 : 0};
+    transition: opacity 1s;
   }
+
+  ${mediaSize.phone`
+    position: relative;
+    right: 30vw;
+  `};
 `;
 
 const Logo = styled.img`
   grid-area: pic;
-  font-size: 5em;
-  max-width: 30vw;
-  max-height: 50vh;
+  margin-top: 3em;
+  max-width: 35vw;
+  max-height: 55vh;
   justify-self: end;
-  align-self: center;
+  align-self: start;
+  opacity: ${props => props.visible ? 1 : 0};
+  transform: ${props => props.visible ? css`translateY(0)` : css`translateY(1rem)`};
+  transition: opacity 1s, transform 1s ease-in-out;
+
+  ${mediaSize.phone`
+    max-width: 35vw;
+    max-height: 70vw;
+    align-self: end;
+    justify-self: start;
+    opacity: ${props => props.visible ? 0.4 : 0};
+  `};
 `;
 
 const ActionContainer = styled.div`
+  margin-top: 4em;
+  opacity: ${props => props.visible ? 1 : 0};
+  transform: ${props => props.visible ? css`translateY(0)` : css`translateY(1rem)`};
+  transition: opacity 1s, transform 1s ease-in-out;
   grid-area: actions;
   display: grid;
-  grid-template-columns: 15vw 15vw;
-  grid-template-rows: 2fr 8fr;
+  align-self: center;
+  grid-template-columns: 17vw 17vw;
+  grid-template-rows: 2fr 12em;
   grid-column-gap: 20%;
   grid-row-gap: 2em;
   grid-template-areas: "action action"
                        "exec-team mailing-list";
 
+
+  ${mediaSize.phone`
+    width: 95%;
+    margin-top: 0;
+    justify-self: center;
+    align-self: end;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto auto;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    grid-template-areas: "action"
+                         "exec-team"
+                         "mailing-list";
+  `};
 `;
 
 const ActionHeader = styled.div`
   grid-area: action;
-  font-size: 4vmin;
+  font-size: 4.5vmin;
 
+  ${mediaSize.phone`
+    font-size: 6vmin;
+    margin-bottom: 0.5em;
+  `};
 `;
 
 const WordShadow = styled.span`
@@ -90,51 +143,224 @@ const WordShadow = styled.span`
     top: -0.4em;
     right: -1em;
     white-space:nowrap;
+    opacity: ${props => props.shadowVisible ? 1 : 0};
+    transition: opacity 1s;
   }
 `;
 
 const ActionButton = styled.div`
-  margin-top: 1em;
+  margin-top: 1.5em;
   background-color: white;
-  color: #a934f7;
-  height: 2.5em;
-  border-radius: 4px;
+  color: #895fd2;
+  height: 3vw;
+  border-radius: 20px;
   cursor: pointer;
   background-color: #fff;
 	border-bottom: 2px solid #909090;
 	text-shadow: 0px -2px #fff;
   text-align: center;
-  line-height: 2.5em;
+  line-height: 3vw;
+
   &:hover {
     transform: translate(0px,2px);
 	  border-bottom: 1px solid;
   }
+
+  ${mediaSize.phone`
+    height: 10vw;
+    border-radius: 10px;
+    line-height: 10vw;
+    font-size: 4vw;
+  `};
+`;
+
+const ActionInput = styled.div`
+  margin-top: 1.5em;
+  height: 3vw;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: #fff;
+	border-bottom: 2px solid #909090;
+	text-shadow: 0px -2px #fff;
+  text-align: center;
+  line-height: 3vw;
+  position: relative;
+  overflow-y: hidden;
+
+  & input:focus{
+    outline: none;
+  }
+
+  & input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+      transition: background-color 5000s ease-in-out 0s;
+  }
+
+
+  ${mediaSize.phone`
+    margin-top: 1.5em;
+    height: 10vw;
+    border-radius: 10px;
+    line-height: 10vw;
+    font-size: 4vw;
+  `};
+
+  @keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+  animation: none;
+  transform: translate3d(0, 0, 0);
+  &.shake {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  }
+`;
+
+const ActionInputOverlay = styled.div`
+  background-color: rgba(255, 255, 255, 0);
+  color: ${props => props.color};
+  white-space: nowrap;
+  transition: transform 500ms;
+  width: ${props => props.width};
+  height: 3vw;
+  position: absolute;
+  top: 0;
+  left: 5%;
+  transform: ${props => props.show ? css`translateY(0)` : css`translateY(-4vw)`};
+
+  ${mediaSize.phone`
+    height: 10vw;
+    transform: ${props => props.show ? css`translateY(0)` : css`translateY(-13vw)`};
+  `};
+`;
+
+const ClickButton = styled.button`
+  display: inline-block;
+  background: transparent;
+  float: right;
+  height: 3vw;
+  width: 3vw;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  right: 1vw;
+  display: table;
+  &:focus {
+    outline: none;
+  }
+
+  transition: transform 500ms;
+  transform: ${props => props.show ? css`translateY(0)` : css`translateY(-4vw)`};
+
+  ${mediaSize.phone`
+    height: 10vw;
+    right: 3vw;
+    transform: ${props => props.show ? css`translateY(0)` : css`translateY(-13vw)`};
+  `};
+`;
+
+const ClickButtonImg = styled.img`
+  max-width: 1vw;
+  max-height: 1vw;
+  float: right;
+  opacity: 0.4;
+  display: table-cell;
+  vertical-align: middle;
+
+  ${mediaSize.phone`
+    max-width: 4vw;
+    max-height: 4vw;
+  `};
+`;
+
+const ActionInputBox = styled.input`
+  width: 70%;
+  height: 3vw;
+  background: transparent;
+  border: none;
+  position: absolute;
+  left: 10%;
+  top: -5%;
+  font-size: 1em;
+  ${mediaSize.phone`
+    height: 10vw;
+  `};
+`;
+
+const ToastBox = styled.div`
+  font-size: 1rem;
+  margin: 10px 0 5px 0;
+  color: ${props => props.fontColor || 'white'};
+  transition: all 500ms;
+  opacity: ${props => props.show ? '1': 0 };
+  transform: ${props => props.show ? css`translateY(0)` : css`translateY(1rem)`};
+
+  ${mediaSize.phone`
+    font-size: 1.5em;
+    height: 3em;
+  `};
 `;
 
 const SocialContainer = styled.div`
   grid-area: social;
-  font-size: 3vmin;
   align-self: end;
+  opacity: ${props => props.visible ? 1 : 0};
+  transform: ${props => props.visible ? css`translateY(0)` : css`translateY(1rem)`};
+  transition: opacity 1s, transform 1s ease-in-out;
 
   & img {
-    max-width: 1.5em;
-    max-height: 1.5em;
+    width: 3em;
+    height: 3em;
     margin-right: 10px;
     opacity: 0.75;
     transition: opacity 300ms ease-in-out;
+
+    ${mediaSize.phone`
+      opacity: 1;
+      width: 1.5em;
+      height: 1.5em;
+      margin-right: 5px;
+    `};
 
     &:hover {
       opacity: 1;
     }
   }
+
 `;
 
 const Copyright = styled.div`
   grid-area: copyright;
-  font-size: 2vmin;
+  font-size: 2.5vmin;
   align-self: end;
   justify-self: end;
   margin-right: 3vw;
+  opacity: ${props => props.visible ? 1 : 0};
+  transform: ${props => props.visible ? css`translateY(0)` : css`translateY(1rem)`};
+  transition: opacity 1s, transform 1s ease-in-out;
+
+  ${mediaSize.phone`
+    width: 80%;
+    text-align: right;
+    align-self: center;
+    font-size: 3.25vmin;
+    margin-right: 2vmin;
+  `};
 `;
 
 
@@ -142,45 +368,117 @@ const Copyright = styled.div`
 class IndexPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      inputFocused: false,
+      curInput: '',
+      lastInputValid: null,
+      lastInputShake: false,
+      mainVisible: false,
+      subVisible: false,
+      restVisible: false,
+      shadowVisible: false
+    };
+  }
+
+  handleSubmit(e){
+    const userEmail = e.target.children && e.target.children[1].value;
+    if( /(.+)@(.+){2,}\.(.+){2,}/.test(userEmail)){ // valid email
+      console.log(userEmail + " is valid");
+      this.setState({lastInputValid: true})
+    } else { // invalid email
+      console.log(userEmail + " is invalid");
+      this.setState({lastInputValid: false, lastInputShake: true})
+    }
+  }
+
+  componentDidMount() {
+    this.mainTimer = setTimeout(() => this.setState({mainVisible: true}), 200);
+    this.subTimer = setTimeout(() => this.setState({subVisible: true}), 350);
+    this.restTimer = setTimeout(() => this.setState({restVisible: true}), 1250);
+    this.shadowTimer = setTimeout(() => this.setState({shadowVisible: true}), 1450);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.mainTimer);
+    clearTimeout(this.subTimer);
+    clearTimeout(this.restTimer);
+    clearTimeout(this.shadowTimer);
   }
 
   render() {
+    let imgSrc = '/button_submit.svg';
+    let toastMsg = null;
+    let toastColor = null;
+    if(this.state.lastInputValid === false) {
+      imgSrc = '/button_fail.svg';
+      toastMsg = 'Your email address seems funky. Try again?';
+      toastColor = '#fa5050';
+    }
+    if(this.state.lastInputValid === true){
+      imgSrc = '/button_success.svg';
+      toastMsg = 'You\'re all set! Keep an eye on your inbox.';
+      toastColor = '#37d634';
+    }
+
     return (
       <div>
-        <Particles params={particleConfig} style={ParticlesStyle} />
+        {/*}<Particles params={particleConfig} style={ParticlesStyle} />*/}
+        <LavaLampBg />
         <Container>
-          <Title>
+          <Title visible={this.state.mainVisible} subVisible={this.state.subVisible}>
             Equithon
           </Title>
-          <Logo src='/Logo-RBG_white.png' />
-          <ActionContainer>
-            <ActionHeader>Be a part of the <WordShadow>change</WordShadow>.</ActionHeader>
-            <div style={{gridArea: 'exec-team', fontSize: '2vmin'}}>
-              We want you to help us make Equithon 2019 the best one yet. <br/>
+          <Logo src='/logo.png' visible={this.state.restVisible}/>
+          <ActionContainer visible={this.state.restVisible}>
+            <ActionHeader>Be a part of the <WordShadow shadowVisible={this.state.shadowVisible}>change</WordShadow>.</ActionHeader>
+            <div style={{gridArea: 'exec-team', fontSize: '2.5vmin'}}>
+              { isMobile ? null : <span>You. Yes, you! We want you to help us make Equithon 2019 the best one yet.<br/></span> }
               <ActionButton onClick={() => window.open('https://www.google.ca/search?q=this+should+link+to+the+exec+application+typeform%2Fgoogle+form&oq=this+should+link+to+the+exec+application+typeform')}>
-                Join The Team
+                { isMobile ? "Join The Exec Team" : "Join The Team" }
               </ActionButton>
             </div>
-            <div style={{gridArea: 'mailing-list', fontSize: '2vmin'}}>
-              Interested in participating? Be the first to receive updates by signing up. <br/>
-              <ActionButton>
-                Keep Me Posted
-              </ActionButton>
+            <div style={{gridArea: 'mailing-list', fontSize: '2.5vmin'}}>
+              { isMobile ? null : <span>Interested in participating? Be the first to receive updates by signing up. <br/></span> }
+              <ActionInput
+                onClick={() => this.setState({ inputFocused: true })}
+                tabIndex="0" onBlur={() => this.setState({ inputFocused: false })}
+                lastSubmitted={this.state.lastInputValid}
+                onAnimationEnd={() => this.setState({ lastInputShake: false })}
+                className={this.state.lastInputShake ? 'shake' : null}>
+                <ActionInputOverlay show={!this.state.inputFocused} color="#895fd2" width="90%">
+                  { !this.state.curInput ? (isMobile ? "Sign Up For Updates" : "Keep Me Posted") : null }
+                </ActionInputOverlay>
+                <ActionInputOverlay show={this.state.inputFocused} color="rgba(142, 142, 142, 0.3)" width="90%">
+                  { !this.state.curInput ? "Your Email" : null }
+                </ActionInputOverlay>
+                <form name="mailing-list" id="mailingListForm" onSubmit={(e) => this.handleSubmit(e)} method="POST" action="https://formspree.io/equithonmailinglistsignup@robot.zapier.com" target="_blank">
+                  <ClickButton type="submit" show={this.state.inputFocused || this.state.curInput !== ''}>
+                    <ClickButtonImg src={imgSrc} />
+                  </ClickButton>
+                  <ActionInputBox type="email" name="userEmail" onChange={(evt) => { this.setState({curInput: evt.target.value, lastInputValid: null}) }} />
+                  <div style={{display: "none"}}>
+                    <input type="hidden" name="_next" value="/thanks" />
+                    <label>Don’t fill this out if you're human: <input name="_gotcha" /></label>
+                  </div>
+                </form>
+              </ActionInput>
+              <ToastBox fontColor={toastColor} show={toastMsg !== null}>
+                {toastMsg}
+              </ToastBox>
             </div>
           </ActionContainer>
-          <SocialContainer>
+          <SocialContainer visible={this.state.restVisible}>
             <a href='https://www.facebook.com/UWEquithon/' target='_blank'>
-              <img src='/facebook.png' />
+              <img src='/social_fb.png' />
             </a>
             <a href='https://www.instagram.com/equithon' target='_blank'>
-              <img src='/instagram.png' />
+              <img src='/social_insta.png' />
             </a>
             <a href='mailto:hello@equithon.org'>
-              <img src='/email.png' />
+              <img src='/social_email.png' />
             </a>
           </SocialContainer>
-          <Copyright>
+          <Copyright visible={this.state.restVisible}>
             © Equithon Corp. 2018.
           </Copyright>
         </Container>

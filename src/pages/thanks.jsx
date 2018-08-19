@@ -30,6 +30,7 @@ const Text = styled.div`
   & a {
     color: white;
     opacity: 0.8;
+    font-size: 2rem;
 
     &:hover {
       opacity: 1;
@@ -48,7 +49,7 @@ class NotFoundPage extends React.Component {
     return (
       <Container>
         <LavaLampBg />
-        <Text><div style={{fontSize: "1.5em", marginBottom: "10px"}}>Error 404:</div> There's nothing here, but we admire your curiosity. <br/><br/> <a href="/">Come help us make Equithon 2019 a reality!</a></Text>
+        <Text><div style={{fontSize: "1.5em", marginBottom: "10px"}}>Thanks!</div>You'll be hearing from us soon!<br/><br/> <a href="/">Go home</a></Text>
       </Container>
     )
   }
