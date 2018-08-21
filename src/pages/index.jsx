@@ -3,13 +3,17 @@ import styled, { css } from 'styled-components';
 import Particles from 'react-particles-js';
 import { isMobile } from 'react-device-detect';
 import MtSvgLines from 'react-mt-svg-lines';
+import Helmet from 'react-helmet';
 import {
   mediaSize,
   particleConfig
 } from '../configOptions.js';
+import '../globalStyles.js';
 import LavaLampBg from '../components/LavaLampBg';
 
+
 const Container = styled.div`
+
   display: grid;
   grid-template-columns: 5fr 3fr;
   grid-template-rows: 20vh 50vh 10vh;
@@ -22,7 +26,7 @@ const Container = styled.div`
   background: linear-gradient(to bottom right, #895fd2 10%, #8f6bcd 48%, #b797ee 99%);
 
   color: white;
-  font-family: "SF Pro Text", sans-serif;
+  font-family: "SF Pro Text", "SF Pro Text Regular", sans-serif;
 
   & > * {
     z-index: 2;
@@ -45,11 +49,13 @@ const ParticlesStyle = {
   zIndex: '1'
 };
 
-const Title = styled.div`
+const Title = styled.h1`
+
   grid-area: title;
   font-size: 15vmin;
   align-self: center;
   font-weight: bold;
+  font-family: "SF Pro Text", "SF Pro Text Bold", sans-serif;
   opacity: ${props => props.visible ? 1 : 0};
   transition: opacity 1s;
 
@@ -62,6 +68,7 @@ const Title = styled.div`
     white-space:nowrap;
     opacity: ${props => props.subVisible ? 1 : 0};
     transition: opacity 1s;
+    font-family: "SF Pro Text", "SF Pro Text Medium", sans-serif;
   }
 
   ${mediaSize.phone`
@@ -424,6 +431,23 @@ class IndexPage extends React.Component {
     return (
       <div>
         {/*}<Particles params={particleConfig} style={ParticlesStyle} />*/}
+        <Helmet>
+          <title>Equithon</title>
+          <meta
+            name="description"
+            content="A social innovation hackathon like no other. Equithon is back for 2019."
+          />
+          <meta
+            name="keywords"
+            content="equithon, hackathon, hacker, event, social, innovation, equity, activism, waterloo, university, 2019, tech, good"
+          />
+          <link
+            rel="icon"
+            href="/logo_tiny.png"
+            sizes={['16x16', '32x32', '64x64', '128x128']}
+            type="image/png"
+          />
+        </Helmet>
         <LavaLampBg />
         <Container>
           <Title visible={this.state.mainVisible} subVisible={this.state.subVisible}>
