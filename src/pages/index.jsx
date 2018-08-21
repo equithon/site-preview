@@ -438,6 +438,10 @@ class IndexPage extends React.Component {
             content="A social innovation hackathon like no other. Equithon is back for 2019."
           />
           <meta
+            name="google-site-verification"
+            content="HrZx9ln8WamacY3EvmuPaCpXqW0Ovw82ybThKXOEiQw"
+          />
+          <meta
             name="keywords"
             content="equithon, hackathon, hacker, event, social, innovation, equity, activism, waterloo, university, 2019, tech, good"
           />
