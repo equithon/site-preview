@@ -388,6 +388,7 @@ class IndexPage extends React.Component {
     } else { // invalid email
       console.log(userEmail + " is invalid");
       this.setState({lastInputValid: false, lastInputShake: true})
+      e.preventDefault();
     }
   }
 
