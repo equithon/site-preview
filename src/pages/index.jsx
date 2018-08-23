@@ -152,6 +152,7 @@ const WordShadow = styled.span`
     white-space:nowrap;
     opacity: ${props => props.shadowVisible ? 1 : 0};
     transition: opacity 1s;
+    font-family: "SF Pro Text", "SF Pro Text Medium", sans-serif;
   }
 `;
 
@@ -214,23 +215,7 @@ const ActionInput = styled.div`
     font-size: 4vw;
   `};
 
-  @keyframes shake {
-    10%, 90% {
-      transform: translate3d(-1px, 0, 0);
-    }
 
-    20%, 80% {
-      transform: translate3d(2px, 0, 0);
-    }
-
-    30%, 50%, 70% {
-      transform: translate3d(-4px, 0, 0);
-    }
-
-    40%, 60% {
-      transform: translate3d(4px, 0, 0);
-    }
-  }
   animation: none;
   transform: translate3d(0, 0, 0);
   &.shake {
@@ -462,7 +447,7 @@ class IndexPage extends React.Component {
             <ActionHeader>Be a part of the <WordShadow shadowVisible={this.state.shadowVisible}>change</WordShadow>.</ActionHeader>
             <div style={{gridArea: 'exec-team', fontSize: '2.5vmin'}}>
               { isMobile ? null : <span>You. Yes, you! We want you to help us make Equithon 2019 the best one yet.<br/></span> }
-              <ActionButton onClick={() => window.open('https://www.google.ca/search?q=this+should+link+to+the+exec+application+typeform%2Fgoogle+form&oq=this+should+link+to+the+exec+application+typeform')}>
+              <ActionButton onClick={() => window.open('https://goo.gl/forms/528YXYk7Lzc2MmJj1')}>
                 { isMobile ? "Join The Exec Team" : "Join The Team" }
               </ActionButton>
             </div>
