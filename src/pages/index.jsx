@@ -447,7 +447,7 @@ class IndexPage extends React.Component {
             <ActionHeader>Be a part of the <WordShadow shadowVisible={this.state.shadowVisible}>change</WordShadow>.</ActionHeader>
             <div style={{gridArea: 'exec-team', fontSize: '2.5vmin'}}>
               { isMobile ? null : <span>You. Yes, you! We want you to help us make Equithon 2019 the best one yet.<br/></span> }
-              <ActionButton onClick={() => window.open('https://goo.gl/forms/528YXYk7Lzc2MmJj1')}>
+              <ActionButton onClick={() => window.open('https://goo.gl/forms/mIxn1VpGFzoN3nc52')}>
                 { isMobile ? "Join The Exec Team" : "Join The Team" }
               </ActionButton>
             </div>
