@@ -10,6 +10,11 @@
   "dependencies": {
     "gatsby": "^1.9.277",
     "gatsby-link": "^1.6.46",
+    "gatsby-plugin-google-analytics": "^1.0.31",
+    "gatsby-plugin-remove-trailing-slashes": "^1.0.9",
+    "gatsby-plugin-sentry": "^0.1.0",
+    "gatsby-plugin-sitemap": "^1.2.25",
+    "gatsby-plugin-styled-components": "^2.0.11",
     "react-device-detect": "^1.5.9",
     "react-helmet": "^5.2.0",
     "react-mt-svg-lines": "^0.8.5",
