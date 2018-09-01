@@ -4,6 +4,7 @@ import Particles from 'react-particles-js';
 import { isMobile } from 'react-device-detect';
 import MtSvgLines from 'react-mt-svg-lines';
 import Helmet from 'react-helmet';
+import 'whatwg-fetch';
 import {
   mediaSize,
   particleConfig
@@ -374,17 +375,32 @@ class IndexPage extends React.Component {
 
   handleSubmit(e){
     const userEmail = e.target.children && e.target.children[1].value;
+
     if( /(.+)@(.+){2,}\.(.+){2,}/.test(userEmail)){ // valid email
-      console.log(userEmail + " is valid");
-      this.setState({lastInputValid: true})
+      this.setState({lastInputValid: true});
+
+      // send the POST request
+      fetch('https://usebasin.com/f/02d35e391829.json', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: userEmail,
+          sentAt: new Date().toLocaleString()
+        })
+      });
+
     } else { // invalid email
-      console.log(userEmail + " is invalid");
       this.setState({lastInputValid: false, lastInputShake: true})
-      e.preventDefault();
     }
+
+    e.preventDefault();
   }
 
   componentDidMount() {
+    // probably the cheesiest way to do fade-on-enter transitions lol
     this.mainTimer = setTimeout(() => this.setState({mainVisible: true}), 200);
     this.subTimer = setTimeout(() => this.setState({subVisible: true}), 350);
     this.restTimer = setTimeout(() => this.setState({restVisible: true}), 1250);
@@ -442,15 +458,19 @@ class IndexPage extends React.Component {
           <Title visible={this.state.mainVisible} subVisible={this.state.subVisible}>
             Equithon
           </Title>
+
           <Logo src='/logo.png' visible={this.state.restVisible}/>
+
           <ActionContainer visible={this.state.restVisible}>
             <ActionHeader>Be a part of the <WordShadow shadowVisible={this.state.shadowVisible}>change</WordShadow>.</ActionHeader>
+
             <div style={{gridArea: 'exec-team', fontSize: '2.5vmin'}}>
               { isMobile ? null : <span>You. Yes, you! We want you to help us make Equithon 2019 the best one yet.<br/></span> }
               <ActionButton onClick={() => window.open('https://goo.gl/forms/mIxn1VpGFzoN3nc52')}>
                 { isMobile ? "Join The Exec Team" : "Join The Team" }
               </ActionButton>
             </div>
+
             <div style={{gridArea: 'mailing-list', fontSize: '2.5vmin'}}>
               { isMobile ? null : <span>Interested in participating? Be the first to receive updates by signing up. <br/></span> }
               <ActionInput
@@ -465,7 +485,7 @@ class IndexPage extends React.Component {
                 <ActionInputOverlay show={this.state.inputFocused} color="rgba(142, 142, 142, 0.3)" width="90%">
                   { !this.state.curInput ? "Your Email" : null }
                 </ActionInputOverlay>
-                <form name="mailing-list" id="mailingListForm" onSubmit={(e) => this.handleSubmit(e)} method="POST" action="https://formspree.io/equithonmailinglistsignup@robot.zapier.com" target="_blank">
+                <form name="mailing-list" id="mailingListForm" onSubmit={(e) => this.handleSubmit(e)} acceptCharset="UTF-8" action="https://usebasin.com/f/02d35e391829" method="POST" target="_blank">
                   <ClickButton type="submit" show={this.state.inputFocused || this.state.curInput !== ''}>
                     <ClickButtonImg src={imgSrc} />
                   </ClickButton>
@@ -481,6 +501,7 @@ class IndexPage extends React.Component {
               </ToastBox>
             </div>
           </ActionContainer>
+
           <SocialContainer visible={this.state.restVisible}>
             <a href='https://www.facebook.com/UWEquithon/' target='_blank'>
               <img src='/social_fb.png' />
@@ -492,9 +513,11 @@ class IndexPage extends React.Component {
               <img src='/social_email.png' />
             </a>
           </SocialContainer>
+
           <Copyright visible={this.state.restVisible}>
             © Equithon Corp. 2018.
           </Copyright>
+
         </Container>
       </div>
     )
