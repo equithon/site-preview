@@ -21,7 +21,7 @@ const Text = styled.div`
   margin-left: auto;
   margin-right: auto;
 
-  font-size: 7vmin;
+  font-size: 5vmin;
   font-weight: bold;
   position: relative;
   z-index: 3;
@@ -49,7 +49,7 @@ class NotFoundPage extends React.Component {
     return (
       <Container>
         <LavaLampBg />
-        <Text><div style={{fontSize: "1.5em", marginBottom: "10px"}}>Thanks!</div>You'll be hearing from us soon!<br/><br/> <a href="/">Go home</a></Text>
+        <Text>Applications will be opening Sept 9, so mark your calendars! <br/><br/> We love your enthusiasm and are looking forward to possibly having you on the team 😄 <br/><br/> <a href="/">Meanwhile, why not sign up for updates?</a></Text>
       </Container>
     )
   }

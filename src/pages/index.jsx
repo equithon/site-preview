@@ -415,6 +415,7 @@ class IndexPage extends React.Component {
   }
 
   render() {
+    let applySrc = 'https://docs.google.com/forms/d/e/1FAIpQLSdi8hdNmfdRcgTSo_o1dvlyyk3xeO_HXqfNH4iQdepSrOhxHw/viewform?usp=sf_link';
     let imgSrc = '/button_submit.svg';
     let toastMsg = null;
     let toastColor = null;
@@ -431,7 +432,6 @@ class IndexPage extends React.Component {
 
     return (
       <div>
-        {/*}<Particles params={particleConfig} style={ParticlesStyle} />*/}
         <Helmet>
           <title>Equithon</title>
           <meta
@@ -466,7 +466,7 @@ class IndexPage extends React.Component {
 
             <div style={{gridArea: 'exec-team', fontSize: '2.5vmin'}}>
               { isMobile ? null : <span>You. Yes, you! We want you to help us make Equithon 2019 the best one yet.<br/></span> }
-              <ActionButton onClick={() => window.open('https://goo.gl/forms/mIxn1VpGFzoN3nc52')}>
+              <ActionButton onClick={() => window.open('/apply', '_self')}>
                 { isMobile ? "Join The Exec Team" : "Join The Team" }
               </ActionButton>
             </div>
