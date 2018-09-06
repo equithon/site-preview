@@ -1,20 +1,14 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import Particles from 'react-particles-js';
 import { isMobile } from 'react-device-detect';
-import MtSvgLines from 'react-mt-svg-lines';
 import Helmet from 'react-helmet';
 import 'whatwg-fetch';
-import {
-  mediaSize,
-  particleConfig
-} from '../configOptions.js';
+import { mediaSize } from '../configOptions.js';
 import '../globalStyles.js';
 import LavaLampBg from '../components/LavaLampBg';
 
 
 const Container = styled.div`
-
   display: grid;
   grid-template-columns: 5fr 3fr;
   grid-template-rows: 20vh 50vh 10vh;
@@ -42,16 +36,7 @@ const Container = styled.div`
   `};
 `;
 
-// Style of the particles.js background container
-const ParticlesStyle = {
-  position: 'fixed',
-  minWidth: '100vw',
-  minHeight: '100vh',
-  zIndex: '1'
-};
-
 const Title = styled.h1`
-
   grid-area: title;
   font-size: 15vmin;
   align-self: center;
@@ -334,7 +319,6 @@ const SocialContainer = styled.div`
       opacity: 1;
     }
   }
-
 `;
 
 const Copyright = styled.div`
@@ -355,7 +339,6 @@ const Copyright = styled.div`
     margin-right: 2vmin;
   `};
 `;
-
 
 
 class IndexPage extends React.Component {
@@ -490,10 +473,6 @@ class IndexPage extends React.Component {
                     <ClickButtonImg src={imgSrc} />
                   </ClickButton>
                   <ActionInputBox type="email" name="userEmail" onChange={(evt) => { this.setState({curInput: evt.target.value, lastInputValid: null}) }} />
-                  <div style={{display: "none"}}>
-                    <input type="hidden" name="_next" value="/thanks" />
-                    <label>Don’t fill this out if you're human: <input name="_gotcha" /></label>
-                  </div>
                 </form>
               </ActionInput>
               <ToastBox fontColor={toastColor} show={toastMsg !== null}>
