@@ -33,7 +33,7 @@ const Container = styled.div`
     grid-template-areas: "pic title"
                          "actions actions"
                          "social copyright";
-  `};
+  `}
 `;
 
 const Title = styled.h1`
