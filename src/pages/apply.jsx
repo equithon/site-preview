@@ -42,7 +42,7 @@ const Text = styled.div`
     }
   }
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     width: 90%;
     font-size: 7vmin;
     padding-bottom: 7vw;
@@ -58,7 +58,7 @@ const SecondaryText = styled(Text)`
     font-size: inherit;
   }
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     font-size: 4vmin;
     padding-top: 8vw;
   `}
@@ -107,7 +107,7 @@ class NotFoundPage extends React.Component {
     return (
       <Container>
         <Helmet>
-          <title>Applying?</title>
+          <title>Apply</title>
           <meta
             name="description"
             content="A social innovation hackathon like no other. Equithon is back for 2019."
