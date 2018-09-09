@@ -27,13 +27,13 @@ const Container = styled.div`
     z-index: 2;
   }
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     grid-template-columns: 35vw 45vw;
     grid-template-rows: 50vw auto 2em;
     grid-template-areas: "pic title"
                          "actions actions"
                          "social copyright";
-  `};
+  `}
 `;
 
 const Title = styled.h1`
@@ -57,7 +57,7 @@ const Title = styled.h1`
     font-family: "SF Pro Text", "SF Pro Text Medium", sans-serif;
   }
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     position: relative;
     right: 30vw;
   `};
@@ -74,7 +74,7 @@ const Logo = styled.img`
   transform: ${props => props.visible ? css`translateY(0)` : css`translateY(1rem)`};
   transition: opacity 1s, transform 1s ease-in-out;
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     max-width: 35vw;
     max-height: 70vw;
     align-self: end;
@@ -99,7 +99,7 @@ const ActionContainer = styled.div`
                        "exec-team mailing-list";
 
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     width: 95%;
     margin-top: 0;
     justify-self: center;
@@ -118,7 +118,7 @@ const ActionHeader = styled.div`
   grid-area: action;
   font-size: 4.5vmin;
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     font-size: 6vmin;
     margin-bottom: 0.5em;
   `};
@@ -160,7 +160,7 @@ const ActionButton = styled.div`
 	  border-bottom: 1px solid;
   }
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     height: 10vw;
     border-radius: 10px;
     line-height: 10vw;
@@ -193,7 +193,7 @@ const ActionInput = styled.div`
   }
 
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     margin-top: 1.5em;
     height: 10vw;
     border-radius: 10px;
@@ -221,7 +221,7 @@ const ActionInputOverlay = styled.div`
   left: 5%;
   transform: ${props => props.show ? css`translateY(0)` : css`translateY(-4vw)`};
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     height: 10vw;
     transform: ${props => props.show ? css`translateY(0)` : css`translateY(-13vw)`};
   `};
@@ -245,7 +245,7 @@ const ClickButton = styled.button`
   transition: transform 500ms;
   transform: ${props => props.show ? css`translateY(0)` : css`translateY(-4vw)`};
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     height: 10vw;
     right: 3vw;
     transform: ${props => props.show ? css`translateY(0)` : css`translateY(-13vw)`};
@@ -260,7 +260,7 @@ const ClickButtonImg = styled.img`
   display: table-cell;
   vertical-align: middle;
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     max-width: 4vw;
     max-height: 4vw;
   `};
@@ -275,7 +275,7 @@ const ActionInputBox = styled.input`
   left: 10%;
   top: -5%;
   font-size: 1em;
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     height: 10vw;
   `};
 `;
@@ -288,7 +288,7 @@ const ToastBox = styled.div`
   opacity: ${props => props.show ? '1': 0 };
   transform: ${props => props.show ? css`translateY(0)` : css`translateY(1rem)`};
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     font-size: 1.5em;
     height: 3em;
   `};
@@ -308,7 +308,7 @@ const SocialContainer = styled.div`
     opacity: 0.75;
     transition: opacity 300ms ease-in-out;
 
-    ${mediaSize.phone`
+    ${mediaSize.mobile`
       opacity: 1;
       width: 1.5em;
       height: 1.5em;
@@ -331,7 +331,7 @@ const Copyright = styled.div`
   transform: ${props => props.visible ? css`translateY(0)` : css`translateY(1rem)`};
   transition: opacity 1s, transform 1s ease-in-out;
 
-  ${mediaSize.phone`
+  ${mediaSize.mobile`
     width: 80%;
     text-align: right;
     align-self: center;

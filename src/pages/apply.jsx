@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import LavaLampBg from '../components/LavaLampBg';
 import Helmet from 'react-helmet';
+import { mediaSize } from '../configOptions.js';
 
 
 const Container = styled.div`
@@ -16,9 +17,8 @@ const Container = styled.div`
 
 const Text = styled.div`
   width: 70%;
-  height: 90%;
-  padding-top: 10%;
-  justify-text: center;
+  padding-bottom: 2vw;
+  text-align: center;
   margin-left: auto;
   margin-right: auto;
 
@@ -41,7 +41,49 @@ const Text = styled.div`
       transition: opacity 500ms;
     }
   }
+
+  ${mediaSize.mobile`
+    width: 90%;
+    font-size: 7vmin;
+    padding-bottom: 7vw;
+  `}
 `;
+
+const SecondaryText = styled(Text)`
+  padding-top: 3vw;
+  font-weight: normal;
+  font-size: 2vmin;
+
+  & a {
+    font-size: inherit;
+  }
+
+  ${mediaSize.mobile`
+    font-size: 4vmin;
+    padding-top: 8vw;
+  `}
+`
+
+const Link = styled.a`
+  color: inherit;
+  opacity: 0.8;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 1;
+    transition: opacity 500ms;
+  }
+`
+const AppForm = styled.iframe`
+  height: 80%;
+  width: 100%;
+  position: relative;
+  z-index: 3;
+
+  opacity: ${props => props.visible ? 0.9 : 0};
+  transform: ${props => props.visible ? css`translateY(0)` : css`translateY(1rem)`};
+  transition: opacity 1s, transform 1s ease-in-out;
+`
 
 
 class NotFoundPage extends React.Component {
@@ -65,7 +107,7 @@ class NotFoundPage extends React.Component {
     return (
       <Container>
         <Helmet>
-          <title>Applying?</title>
+          <title>Apply</title>
           <meta
             name="description"
             content="A social innovation hackathon like no other. Equithon is back for 2019."
@@ -86,7 +128,20 @@ class NotFoundPage extends React.Component {
           />
         </Helmet>
         <LavaLampBg />
-        <Text visible={this.state.mainVisible}>Applications will be opening Sept 9, so mark your calendars! <br/><br/> We love your enthusiasm and are looking forward to possibly having you on the team 😄 <br/><br/> <a href="/">Meanwhile, why not sign up for updates?</a></Text>
+        <Text visible={this.state.mainVisible}>Exec Application</Text>
+        <AppForm
+          visible={this.state.mainVisible}
+          src="https://docs.google.com/forms/d/e/1FAIpQLSdi8hdNmfdRcgTSo_o1dvlyyk3xeO_HXqfNH4iQdepSrOhxHw/viewform?embedded=true"
+          scrolling="yes"
+          frameBorder="0"
+          marginHeight="0"
+          marginWidth="0"
+        >
+          Loading...
+        </AppForm>
+        <SecondaryText visible={this.state.mainVisible}>
+          <Link href="/">&lt; Home</Link>
+        </SecondaryText>
       </Container>
     )
   }
