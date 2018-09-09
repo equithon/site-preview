@@ -20,7 +20,7 @@
     "react-mt-svg-lines": "^0.8.5",
     "react-particles-js": "^2.3.0",
     "react-window-size": "^1.2.2",
-    "styled-components": "^3.4.2",
+    "styled-components": "^3.4.5",
     "whatwg-fetch": "^2.0.4"
   }
 }
