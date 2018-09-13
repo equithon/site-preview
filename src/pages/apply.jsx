@@ -120,6 +120,22 @@ class NotFoundPage extends React.Component {
             name="keywords"
             content="equithon, hackathon, event, social, innovation, equity, waterloo, university, 2019, apply, applications, organizer, exec"
           />
+          <meta
+            property="og:title"
+            content="Equithon Executive Applications"
+          />
+          <meta
+            property="og:description"
+            content="Apply now to be a part of the 2019 committee!"
+          />
+          <meta
+            property="og:site_name"
+            content="Equithon"
+          />
+          <meta
+            property="og:image"
+            content="/apply_og.jpg"
+          />
           <link
             rel="icon"
             href="/logo_tiny.png"
