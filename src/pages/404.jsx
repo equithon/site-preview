@@ -71,7 +71,7 @@ class NotFoundPage extends React.Component {
           />
         </Helmet>
         <LavaLampBg />
-        <Text><div style={{fontSize: "1.5em", marginBottom: "10px"}}>Error 404:</div> There's nothing here, but we admire your curiosity. <br/><br/> <a href="/">Come help us make Equithon 2019 a reality!</a></Text>
+        <Text><div style={{fontSize: "1.5em", marginBottom: "10px"}}>Error 404:</div> There's nothing here, but we admire your curiosity. <br/><br/> <a href="/apply">Come help us make Equithon 2019 a reality!</a></Text>
       </Container>
     )
   }
