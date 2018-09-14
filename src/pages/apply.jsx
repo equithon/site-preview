@@ -134,7 +134,7 @@ class NotFoundPage extends React.Component {
           />
           <meta
             property="og:image"
-            content="/apply_og.jpg"
+            content="https://equithon.org/apply_og.jpg"
           />
           <link
             rel="icon"
