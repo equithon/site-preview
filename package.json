@@ -5,12 +5,14 @@
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
-    "serve": "gatsby serve"
+    "serve": "gatsby serve",
+    "scrub-react-helmet": "grep -rl ' data-react-helmet=\"true\"' ./public | xargs sed -i '' 's/ data-react-helmet=\"true\"//g'"
   },
   "dependencies": {
     "gatsby": "^1.9.277",
     "gatsby-link": "^1.6.46",
     "gatsby-plugin-google-analytics": "^1.0.31",
+    "gatsby-plugin-react-helmet": "^3.0.0",
     "gatsby-plugin-remove-trailing-slashes": "^1.0.9",
     "gatsby-plugin-sentry": "^0.1.0",
     "gatsby-plugin-sitemap": "^1.2.25",

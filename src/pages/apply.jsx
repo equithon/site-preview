@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import LavaLampBg from '../components/LavaLampBg';
-import Helmet from 'react-cap';
+import Helmet from 'react-helmet';
 import { mediaSize } from '../configOptions.js';
 
 

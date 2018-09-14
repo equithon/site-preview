@@ -29,6 +29,22 @@ module.exports = class HTML extends React.Component {
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
           />
+          <meta
+            property="og:title"
+            content="Equithon Executive Applications"
+          />
+          <meta
+            property="og:description"
+            content="Apply now to be a part of the 2019 committee!"
+          />
+          <meta
+            property="og:site_name"
+            content="Equithon"
+          />
+          <meta
+            property="og:image"
+            content="https://equithon.org/apply_og.jpg"
+          />
           {this.props.headComponents}
           {css}
         </head>

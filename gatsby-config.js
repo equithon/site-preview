@@ -9,6 +9,9 @@ module.exports = {
       resolve: 'gatsby-plugin-styled-components',
     },
     {
+      resolve: 'gatsby-plugin-react-helmet',
+    },
+    {
       resolve: 'gatsby-plugin-google-analytics',
       options: {
         trackingId: `UA-114911192-4`,
