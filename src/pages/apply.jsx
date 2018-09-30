@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import LavaLampBg from '../components/LavaLampBg';
 import Helmet from 'react-helmet';
 import { mediaSize } from '../configOptions.js';
+import { isMobile } from 'react-device-detect';
 
 
 const Container = styled.div`
@@ -145,7 +146,7 @@ class NotFoundPage extends React.Component {
         <Text visible={this.state.mainVisible}>
           Applications for the 2019 organizing committee have concluded. <br/> <br/>
           Thank you to everyone who applied - keep an eye on your inbox! <br/> <br/>
-          <Link href="/" style={{fontSize: "5vw"}}>Still interested in participating? Sign up for updates!</Link>
+          <Link href="/" style={{fontSize: isMobile ? "5vw" : "1em"}}>Still interested in participating? Sign up for updates!</Link>
         </Text>
       </Container>
     )
