@@ -91,12 +91,12 @@ const ActionContainer = styled.div`
   grid-area: actions;
   display: grid;
   align-self: center;
-  grid-template-columns: 17vw 17vw;
+  grid-template-columns: 19vw 17vw;
   grid-template-rows: 2fr 12em;
   grid-column-gap: 20%;
   grid-row-gap: 2em;
   grid-template-areas: "action action"
-                       "exec-team mailing-list";
+                       "mailing-list sponsor-contact";
 
 
   ${mediaSize.mobile`
@@ -109,7 +109,7 @@ const ActionContainer = styled.div`
     grid-column-gap: 0;
     grid-row-gap: 0;
     grid-template-areas: "action"
-                         "exec-team"
+                         "sponsor-contact"
                          "mailing-list";
   `};
 `;
@@ -447,15 +447,8 @@ class IndexPage extends React.Component {
           <ActionContainer visible={this.state.restVisible}>
             <ActionHeader>Be a part of the <WordShadow shadowVisible={this.state.shadowVisible}>change</WordShadow>.</ActionHeader>
 
-            <div style={{gridArea: 'exec-team', fontSize: '2.5vmin'}}>
-              { isMobile ? null : <span>Help us make Equithon 2019 the best one yet. Apps close <b>Sept 29</b> at <b>11:59PM EST</b>.<br/></span> }
-              <ActionButton onClick={() => window.open('/apply', '_self')}>
-                { isMobile ? "Join The Exec Team" : "Join The Team" }
-              </ActionButton>
-            </div>
-
             <div style={{gridArea: 'mailing-list', fontSize: '2.5vmin'}}>
-              { isMobile ? null : <span>Interested in participating? Be the first to receive updates by signing up. <br/></span> }
+              { isMobile ? null : <span>Interested in <b>participating</b>? <br/> Be the first to receive updates by signing up. <br/></span> }
               <ActionInput
                 onClick={() => this.setState({ inputFocused: true })}
                 tabIndex="0" onBlur={() => this.setState({ inputFocused: false })}
@@ -478,6 +471,14 @@ class IndexPage extends React.Component {
               <ToastBox fontColor={toastColor} show={toastMsg !== null}>
                 {toastMsg}
               </ToastBox>
+            </div>
+
+
+            <div style={{gridArea: 'sponsor-contact', fontSize: '2.5vmin'}}>
+              { isMobile ? null : <span>Interested in <b>sponsoring</b>? <br/> Exciting! Drop us an email anytime.</span> }
+              <ActionButton onClick={() => window.open('mailto:hello@equithon.org', '_self')}>
+                { isMobile ? "Looking to Sponsor?" : "Connect With Us" }
+              </ActionButton>
             </div>
           </ActionContainer>
 

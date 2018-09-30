@@ -17,8 +17,7 @@ const Container = styled.div`
 
 const Text = styled.div`
   width: 70%;
-  padding-bottom: 2vw;
-  text-align: center;
+  padding: 3vw;
   margin-left: auto;
   margin-right: auto;
 
@@ -67,7 +66,6 @@ const SecondaryText = styled(Text)`
 const Link = styled.a`
   color: inherit;
   opacity: 0.8;
-  text-decoration: none;
 
   &:hover {
     opacity: 1;
@@ -144,20 +142,11 @@ class NotFoundPage extends React.Component {
           />
         </Helmet>
         <LavaLampBg />
-        <Text visible={this.state.mainVisible}>Exec Application</Text>
-        <AppForm
-          visible={this.state.mainVisible}
-          src="https://docs.google.com/forms/d/e/1FAIpQLSdi8hdNmfdRcgTSo_o1dvlyyk3xeO_HXqfNH4iQdepSrOhxHw/viewform?embedded=true"
-          scrolling="yes"
-          frameBorder="0"
-          marginHeight="0"
-          marginWidth="0"
-        >
-          Loading...
-        </AppForm>
-        <SecondaryText visible={this.state.mainVisible}>
-          <Link href="/">&lt; Home</Link>
-        </SecondaryText>
+        <Text visible={this.state.mainVisible}>
+          Applications for the 2019 organizing committee have concluded. <br/> <br/>
+          Thank you to everyone who applied - keep an eye on your inbox! <br/> <br/>
+          <Link href="/" style={{fontSize: "5vw"}}>Still interested in participating? Sign up for updates!</Link>
+        </Text>
       </Container>
     )
   }
