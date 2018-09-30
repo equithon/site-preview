@@ -31,11 +31,11 @@ module.exports = class HTML extends React.Component {
           />
           <meta
             property="og:title"
-            content="Equithon Executive Applications"
+            content="Equithon"
           />
           <meta
             property="og:description"
-            content="Apply now to be a part of the 2019 committee!"
+            content="Waterloo's largest social innovation hackathon is back for 2019."
           />
           <meta
             property="og:site_name"
@@ -43,7 +43,7 @@ module.exports = class HTML extends React.Component {
           />
           <meta
             property="og:image"
-            content="https://equithon.org/apply_og.jpg"
+            content="https://equithon.org/og_image_main.jpg"
           />
           {this.props.headComponents}
           {css}
