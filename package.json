@@ -1,12 +1,12 @@
 {
-  "name": "equithon-splash",
-  "description": "Equithon 2019 Splash Page",
+  "name": "equithon-landing",
+  "description": "Equithon 2019 Landing Page",
   "license": "MIT",
   "scripts": {
     "develop": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",
-    "scrub-react-helmet": "grep -rl ' data-react-helmet=\"true\"' ./public | xargs sed -i '' 's/ data-react-helmet=\"true\"//g'"
+    "deploy": "firebase deploy"
   },
   "dependencies": {
     "gatsby": "^1.9.277",
