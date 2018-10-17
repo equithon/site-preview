@@ -1,6 +1,6 @@
 {
-  "name": "equithon-splash",
-  "description": "Equithon 2019 Splash Page",
+  "name": "equithon-landing",
+  "description": "Equithon 2019 Landing Page",
   "license": "MIT",
   "scripts": {
     "develop": "gatsby develop",
