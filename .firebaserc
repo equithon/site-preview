@@ -1,5 +1,24 @@
 {
   "projects": {
-    "production": "equithon-landing-site"
-  }
+    "prod": "equithon-platform-2019",
+    "staging": "equithon-platform-2019-staging"
+  },
+  "targets": [
+    { "prod": {
+        "hosting": {
+          "landing": [
+            "equithon-landing-2019"
+          ]
+        }
+      }
+    },
+    { "staging": {
+        "hosting": {
+          "landing": [
+            "equithon-landing-2019-staging"
+          ]
+        }
+      }
+    }
+  ]
 }
