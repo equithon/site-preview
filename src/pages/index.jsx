@@ -185,6 +185,10 @@ const ActionInput = styled.div`
     outline: none;
   }
 
+  & .grecaptcha-badge {
+    display: none;
+  }
+
   & input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
@@ -417,6 +421,7 @@ class IndexPage extends React.Component {
       <div>
         <Helmet>
           <title>Equithon</title>
+          <script src="https://www.google.com/recaptcha/api.js" async defer></script>
           <meta
             name="description"
             content="A social innovation hackathon like no other. Equithon is back for 2019."
@@ -462,7 +467,7 @@ class IndexPage extends React.Component {
                   { !this.state.curInput ? "Your Email" : null }
                 </ActionInputOverlay>
                 <form name="mailing-list" id="mailingListForm" onSubmit={(e) => this.handleSubmit(e)} acceptCharset="UTF-8" action="https://usebasin.com/f/02d35e391829" method="POST" target="_blank">
-                  <ClickButton type="submit" show={this.state.inputFocused || this.state.curInput !== ''}>
+                  <ClickButton type="submit" className="g-recaptcha" data-sitekey="6Lew3SMUAAAAAJ82QoS7gqOTkRI_dhYrFy1f7Sqy" data-badge="inline" show={this.state.inputFocused || this.state.curInput !== ''}>
                     <ClickButtonImg src={imgSrc} />
                   </ClickButton>
                   <ActionInputBox type="email" name="userEmail" onChange={(evt) => { this.setState({curInput: evt.target.value, lastInputValid: null}) }} />
