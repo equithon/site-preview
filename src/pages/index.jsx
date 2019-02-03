@@ -468,7 +468,7 @@ class IndexPage extends React.Component {
                   { !this.state.curInput ? "Your Email" : null }
                 </ActionInputOverlay>
                 <form name="mailing-list" id="mailingListForm" onSubmit={(e) => this.handleSubmit(e)} acceptCharset="UTF-8" action="https://usebasin.com/f/02d35e391829" method="POST" target="_blank">
-                  <ClickButton type="submit" show={this.state.inputFocused || this.state.curInput !== ''}>
+                  <ClickButton type="submit" className="g-recaptcha" data-sitekey="6Lew3SMUAAAAAJ82QoS7gqOTkRI_dhYrFy1f7Sqy" data-badge="inline" show={this.state.inputFocused || this.state.curInput !== ''}>
                     <ClickButtonImg src={imgSrc} />
                   </ClickButton>
                   <ActionInputBox type="email" name="userEmail" onChange={(evt) => { this.setState({curInput: evt.target.value, lastInputValid: null}) }} />
