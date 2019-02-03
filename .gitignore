@@ -69,3 +69,4 @@ typings/
 .next
 
 .DS_Store
+.firebase/

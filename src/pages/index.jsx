@@ -185,6 +185,10 @@ const ActionInput = styled.div`
     outline: none;
   }
 
+  & .grecaptcha-badge {
+    display: none;
+  }
+
   & input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
@@ -358,6 +362,7 @@ class IndexPage extends React.Component {
 
   handleSubmit(e){
     const userEmail = e.target.children && e.target.children[1].value;
+    console.log(userEmail);
 
     if( /(.+)@(.+){2,}\.(.+){2,}/.test(userEmail)){ // valid email
       this.setState({lastInputValid: true});
@@ -417,6 +422,7 @@ class IndexPage extends React.Component {
       <div>
         <Helmet>
           <title>Equithon</title>
+          <script src="https://www.google.com/recaptcha/api.js" async defer></script>
           <meta
             name="description"
             content="A social innovation hackathon like no other. Equithon is back for 2019."
